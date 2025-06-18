@@ -1,5 +1,4 @@
-// pages/IPlayerHomePage.ts
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
 
 export class IPlayerHomePage {
   readonly page: Page;
@@ -11,15 +10,19 @@ export class IPlayerHomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.acceptBtn = page.locator('#bbccookies-accept-button');
+    this.acceptBtn = page.locator("#bbccookies-accept-button");
     this.navMenu = page.locator('ul[data-bbc-container="primary-nav"]');
-    this.carousels = page.locator('div.carrousel.carrousel--with-arrows');
-    this.episodeTileMeta = page.locator('div.content-item-root__meta.typo--skylark.typo--bold').first();
-    this.heroTitle = page.locator('h1.hero-header__title.typo--bold.typo--buzzard');
+    this.carousels = page.locator("div.carrousel.carrousel--with-arrows");
+    this.episodeTileMeta = page
+      .locator("div.content-item-root__meta.typo--skylark.typo--bold")
+      .first();
+    this.heroTitle = page.locator(
+      "h1.hero-header__title.typo--bold.typo--buzzard"
+    );
   }
 
   async goto() {
-    await this.page.goto('/iplayer');
+    await this.page.goto("/iplayer");
   }
 
   async gotoAndAccept() {
@@ -38,23 +41,22 @@ export class IPlayerHomePage {
   }
 
   async waitForLazyLoad() {
-    // allow carousels to render
     await this.page.waitForTimeout(10_000);
   }
 
   async getItemCountInCarousel(index: number) {
     return this.carousels
       .nth(index)
-      .locator('ul.carrousel__track > li')
+      .locator("ul.carrousel__track > li")
       .count();
   }
 
   async getItemXPosition(carouselIndex: number, itemIndex: number) {
     const item = this.carousels
       .nth(carouselIndex)
-      .locator('ul.carrousel__track > li')
+      .locator("ul.carrousel__track > li")
       .nth(itemIndex);
-    return item.evaluate(el => el.getBoundingClientRect().x);
+    return item.evaluate((el) => el.getBoundingClientRect().x);
   }
 
   async moveCarouselForward(carouselIndex = 0) {
