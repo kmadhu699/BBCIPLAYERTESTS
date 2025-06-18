@@ -1,9 +1,6 @@
-// tests/bbcIplayer.spec.ts
+
 import { test, expect } from '@playwright/test';
 import { IPlayerHomePage } from '../src/pageobjects/BBCPage';
-
-// Hardcode full BBC iPlayer URL
-//const IPLAYER_URL = '/';
 
 test.describe('BBC iPlayer Homepage', () => {
   let home: IPlayerHomePage;
